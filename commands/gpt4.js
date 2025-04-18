@@ -13,23 +13,20 @@ module.exports = {
       return sendMessage(senderId, { text: "Usage: gpt4 <question>" }, pageAccessToken);
     }
 
-    // Indiquer à l'utilisateur que le bot traite la demande
+    // Indique que GPT est en train de générer une réponse
     await sendMessage(senderId, { text: 'GPT-4o is thinking...' }, pageAccessToken);
 
     try {
-      const { data } = await axios.post(
-        'https://api.kenliejugarap.com/blackbox-gpt4o/',
-        { text: prompt },
-        { headers: { 'Content-Type': 'application/json' } }
+      const response = await axios.get(
+        `https://api.kenliejugarap.com/blackbox-gpt4o/`,
+        { params: { text: prompt } }
       );
 
-      if (data?.response) {
-        return sendMessage(senderId, { text: data.response }, pageAccessToken);
-      } else {
-        return sendMessage(senderId, { text: "No valid response received from GPT-4o." }, pageAccessToken);
-      }
+      const reply = response?.data?.response || "No valid response received from GPT-4o.";
+      return sendMessage(senderId, { text: reply }, pageAccessToken);
+
     } catch (error) {
-      console.error("GPT-4o Error:", error.message);
+      console.error('GPT-4o Error:', error.message);
       return sendMessage(senderId, { text: 'There was an error generating the content. Please try again later.' }, pageAccessToken);
     }
   }
