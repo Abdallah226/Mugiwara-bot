@@ -1,20 +1,32 @@
-const fetch = require('node-fetch');
+const axios = require('axios');
+const { sendMessage } = require('../handles/sendMessage');
 
-const YOUR_API_KEY = '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';
+module.exports = {
+  name: 'gpt4',
+  description: 'Interact with GPT-4o',
+  usage: 'gpt4 [your message]',
+  author: 'coffee',
 
-const response = await fetch("https://api.openai.com/v1/chat/completions", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${YOUR_API_KEY}`
-  },
-  body: JSON.stringify({
-    model: "gpt-3.5-turbo",
-    messages: [
-      { role: "user", content: "Bonjour, qui es-tu ?" }
-    ]
-  })
-});
+  async execute(senderId, args, pageAccessToken) {
+    const prompt = args.join(' ').trim();
+    if (!prompt) {
+      return sendMessage(senderId, { text: "Usage: gpt4 <question>" }, pageAccessToken);
+    }
 
-const data = await response.json();
-console.log(data.choices[0].message.content);
+    await sendMessage(senderId, { text: 'GPT-4o is thinking...' }, pageAccessToken);
+
+    try {
+      const response = await axios.get(
+        `https://api.kenliejugarap.com/blackbox-gpt4o/`,
+        { params: { text: prompt } }
+      );
+
+      const reply = response?.data?.response || "No valid response received from GPT-4o.";
+      return sendMessage(senderId, { text: reply }, pageAccessToken);
+
+    } catch (error) {
+      console.error('GPT-4o Error:', error.message);
+      return sendMessage(senderId, { text: 'There was an error generating the content. Please try again later.' }, pageAccessToken);
+    }
+  }
+};
