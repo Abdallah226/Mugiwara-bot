@@ -7,7 +7,7 @@ const token = fs.readFileSync('token.txt', 'utf8');
 const useFontFormatting = true;
 
 module.exports = {
-  name: 'ai',
+  name: 'ackerman',
   description: 'Interact to Free GPT - OpenAI.',
   author: 'Arn', // API by Kenlie Navacilla Jugarap
 
@@ -16,7 +16,7 @@ module.exports = {
     const query = args.join(" ").toLowerCase();
 
     if (!query) {
-      const defaultMessage = "⛷𝙅e 𝒗𝒐𝒖𝒔 𝒑𝒓𝒊𝒆 ძe me ⍴résen𝗍er 𝒍𝒂 𝒒𝒖𝒆𝒔𝒕𝒊𝒐𝒏 𝙨𝙚𝙡𝙤𝙣 𝙫𝙤𝙩𝙧𝙚 préférence⚜, 𝙚𝙩 𝙟𝙚 𝙢'𝙚𝙢𝙥𝙡𝙤𝙞𝙚𝙧𝙖𝙞 à 𝕧𝕠𝕦𝕤 𝕠𝕗𝕗𝕣𝕚𝕣 𝕦𝕟𝕖 réponse 𝕡𝕖𝕣𝕥𝕚𝕟𝕖𝕟𝕥𝕖 𝕖𝕥 adéquate.❤ 𝐒𝐚𝐜𝐡𝐞𝐳 𝐪𝐮𝐞 𝐯𝐨𝐭𝐫𝐞 𝐬𝐚𝐭𝐢𝐬𝐟𝐚𝐜𝐭𝐢𝐨𝐧 𝐝𝐞𝐦𝐞𝐮𝐫𝐞 𝐦𝐚 𝐩𝐫𝐢𝐨𝐫𝐢𝐭é à 𝐭𝐨𝐮𝐭𝐞𝐬 é𝐠𝐚𝐫𝐝𝐬😉.(merci pour votre attention)";
+      const defaultMessage = "ᎯᏨᏦᎬᏒᎷᎯᏁ 𝐯𝐨𝐮𝐬 é𝐜𝐨𝐮𝐭𝐞𝐬 𝐪𝐮𝐞 𝐩𝐮𝐢𝐬 𝐣𝐞 𝐩𝐨𝐮𝐫 𝐯𝐨𝐮𝐬 ? ⚢︎.(merci pour votre attention)";
       const formattedMessage = useFontFormatting ? formatResponse(defaultMessage) : defaultMessage;
       return await sendMessage(senderId, { text: formattedMessage }, pageAccessToken);
     }
@@ -40,13 +40,13 @@ const handleChatResponse = async (senderId, input, pageAccessToken) => {
 
     const responseTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Manila', hour12: true });
 
-    const answeringMessage = `⏳ 𝗝𝘂𝘀𝘁 𝗪𝗮𝗶𝘁...`;
+    const answeringMessage = `𐂃 𝐮𝐧 𝐢𝐧𝐬𝐭𝐚𝐧𝐭...`;
     const formattedAnsweringMessage = useFontFormatting ? formatResponse(answeringMessage) : answeringMessage;
     await sendMessage(senderId, { text: formattedAnsweringMessage }, pageAccessToken);
 
     const defaultMessage = `Free GPT / OpenAI
 
-♦︎|☛𝗝𝗼𝗸𝗲𝗿᭄
+♦︎|☛ᎯᏨᏦᎬᏒᎷᎯᏁ
 ✅ Answer: ${response}
 ▬▭▬ ▬▭▬✧▬▭▬ ▬▭▬
 ⏰ Response: ${responseTime}`;
